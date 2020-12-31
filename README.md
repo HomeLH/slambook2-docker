@@ -61,7 +61,7 @@ GUI test result with MobaXterm
 
 ### Known issues
 
-- ch8 needs OpenCV 4.0, current project do not support.
+- ch8 needs OpenCV 4.0, current project does not support.
 - ch13 meets build error.
 - Some datasets are not provided in this container.
 - Switch access between remote and local desktop meets problem.
