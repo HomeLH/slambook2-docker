@@ -12,3 +12,7 @@ deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe m
 
 deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
 #deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+
+# libjarsper-dev for opencv 3.1.0
+deb http://mirrors.aliyun.com/ubuntu/ xenial main universe
+deb http://mirrors.aliyun.com/ubuntu/ xenial-security main universe
