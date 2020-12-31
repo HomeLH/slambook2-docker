@@ -1,31 +1,67 @@
-## Slambook2
-![titlepage](./figures/title.png)
+## Docker Container for Slambook2
 
-Welcome to Slambook 2nd Edition! This is the codebase of our book. Here are some relavant links if you need them: 
-- [Our book at jd.com](https://item.jd.com/12666058.html)
-- [Our book at douban.com](https://book.douban.com/subject/27028215/) (I'll be happy to get a score at douban)
-- [code of slambook version 1](https://github.com/gaoxiang12/slambook)
-- [slambook in English](https://github.com/gaoxiang12/slambook-en) (Still on going)
+This repo is docker container for slambook2. Our goal is to reduce the inconvenience of building your demo environment. With docker you can do it out of the box. You do not worry about making your current build environment dirty. Pre-installed packages include:
 
-Email me if you have any questions: gao.xiang.thu at gmail dot com. Or send a issue at github if your question is about the code.
+- OpenCV 3.1.0
+- Sophus
+- Ceres
+- g2o
+- libeigen3-dev
+- gtest
+- pcl
+- Pangolin
 
-Errata will be updated at this code base.
+## Installation
 
-Hope you like this book.
+### build through Dockerfile
 
-BaiduYun backup link in case your github is very slow (common in China): [here](https://pan.baidu.com/s/1XQwpnDb3BOvxXZhL-03p3w)
+```
+git clone https://github.com/HomeLH/slambook2-docker.git
+cd slambook2-docker
+git submodule update --init
+docker build -t slambook:v0.1 .
+```
 
----
-## 视觉SLAM十四讲：从理论到实践 第二版
-欢迎来到视觉SLAM十四讲：从理论到实践。这里存放本书对应的代码文件。以下是一些可能对你有用的链接：
-- [京东书籍链接](https://item.jd.com/12666058.html)
-- [第一版书代码](https://github.com/gaoxiang12/slambook)
-- [英文版代码](https://github.com/gaoxiang12/slambook-en) (正在翻译中)
+### pull from hub.docker.com
 
-如果您对书籍内容有疑问，请给我发送邮件。如果对代码有疑问，请点击上方的issue链接新建issues。我会不定期查看和回复（抱歉我可能无法回复所有问题和邮件）。
+```
+docker pull ddhogan/slambook
+```
 
-勘误表会更新到代码库中。
+### Usage
 
-希望您喜欢本书。
+Current version is tested at a remote ubuntu server. The ssh Client we used is MobaXterm on windows 10, which has built-in X11-server and X11-forwarding.
 
-本代码的百度云备份（如果您的github速度非常慢）[下载链接](https://pan.baidu.com/s/1XQwpnDb3BOvxXZhL-03p3w).
+start docker container.
+
+```
+docker run -it \
+  --net=host \
+  -e DISPLAY=$DISPLAY \
+  -v $HOME/.Xauthority:/root/.Xauthority \
+  --name slamtest \
+  slambook:v0.1
+```
+
+reenter docker container
+
+```
+# start container
+docker start slamtest
+# enter container
+docker exec -it \
+  -e DISPLAY=$DISPLAY \
+  slamtest \
+  bash
+```
+
+GUI test result with MobaXterm
+
+![GUI test](figures/GUI-test.png)
+
+### Known issues
+
+- ch8 needs OpenCV 4.0, current project do not support.
+- ch13 meets build error.
+- Some datasets are not provided in this container.
+- Switch access between remote and local desktop meets problem.
